@@ -17,6 +17,10 @@
 
     <form action="{{ route('images.store') }}" method="POST" enctype="multipart/form-data">
         @csrf
+        {{-- <div class="form-group">
+            <label for="show-image">To be uploaded Image:</label>
+            <img src="{{  }}" />
+        </div> --}}
         <div class="form-group">
             <label for="image">Image:</label>
             <input type="file" name="image" class="form-control" required>
