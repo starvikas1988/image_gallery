@@ -14,13 +14,17 @@
             </ul>
         </div>
     @endif
-
+      {{-- <?php // dd($image); ?> --}}
     <form action="{{ route('images.update', $image->id) }}" method="POST" enctype="multipart/form-data">
         @csrf
         @method('PUT')
         <div class="form-group">
+            <label for="current_image">Current Image</label>
+            <img id="currentImage" src="{{ asset('storage/' . $image->image_url) }}" alt="Current Image" style="display: block; width: 200px; height: auto;"/>
+        </div>
+        <div class="form-group">
             <label for="image">Image:</label>
-            <input type="file" name="image" class="form-control">
+            <input type="file" name="image" class="form-control" accept="image/*" onchange="previewImage(event)">
             <small class="form-text text-muted">Leave blank if you don't want to change the image.</small>
         </div>
         <div class="form-group">
@@ -37,4 +41,15 @@
         </div>
         <button type="submit" class="btn btn-success">Update</button>
     </form>
+    <script>
+        function previewImage(event) {
+            var reader1 = new FileReader();
+            reader1.onload = function(){
+                var output = document.getElementById('imagePreview');
+                output.src = reader1.result;
+                output.style.display = 'block';
+            };
+            reader1.readAsDataURL(event.target.files[0]);
+        }
+    </script>
 @endsection

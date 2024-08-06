@@ -23,7 +23,7 @@
         </div> --}}
         <div class="form-group">
             <label for="image">Image:</label>
-            <input type="file" name="image" class="form-control" required>
+            <input type="file" name="image" class="form-control"  accept="image/*" onchange="previewImage(event)" required>
         </div>
         <div class="form-group">
             <label for="title">Title:</label>
@@ -37,6 +37,21 @@
             <label for="tag">Tag:</label>
             <input type="text" name="tag" class="form-control" required>
         </div>
+        <div class="form-group">
+            <img id="imagePreview" src="" alt="Image Preview" style="display: none; width: 200px; height: auto;"/>
+        </div>
         <button type="submit" class="btn btn-success">Upload</button>
     </form>
+
+    <script>
+        function previewImage(event) {
+            var reader = new FileReader();
+            reader.onload = function(){
+                var output = document.getElementById('imagePreview');
+                output.src = reader.result;
+                output.style.display = 'block';
+            };
+            reader.readAsDataURL(event.target.files[0]);
+        }
+    </script>
 @endsection
